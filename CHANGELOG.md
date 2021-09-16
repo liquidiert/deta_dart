@@ -1,3 +1,7 @@
+## 1.0.1
+
+- added Deta to README
+
 ## 1.0.0
 
 - added Deta Drive

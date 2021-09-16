@@ -1,6 +1,6 @@
 name: deta_dart
 description: Flutter package for easy usage of Deta Base, Drive and Auth
-version: 1.0.0
+version: 1.0.1
 homepage: https://deta.sh
 issue_tracker: https://github.com/liquidiert/deta_dart/issues
 
