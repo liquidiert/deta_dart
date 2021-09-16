@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_deta/src/drive/models/fileList.dart';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as developer;
 
 class DetaDrive {
   late final String _projectKey;
@@ -22,7 +23,7 @@ class DetaDrive {
   get _baseUrl => "https://drive.deta.sh/v1/$_projectId";
   get _defaultHeaders => {"X-API-Key": _projectKey};
 
-  checkForCreds() {
+  _checkForCreds() {
     // ignore: unnecessary_null_comparison
     if (_projectId == null && _projectKey == null) {
       throw ArgumentError(
@@ -31,7 +32,7 @@ class DetaDrive {
   }
 
   uploadSmallFile(String drive, String name, Uint8List file) async {
-    checkForCreds();
+    _checkForCreds();
     final fileLength = file.length;
     if (fileLength > 10485760) {
       throw ArgumentError.value(fileLength, "file",
@@ -45,11 +46,11 @@ class DetaDrive {
   }
 
   Stream chunkedUpload(String drive, String name, Uint8List file) async* {
-    checkForCreds();
+    _checkForCreds();
     final fileLength = file.length;
     if (fileLength <= 10485760) {
       // ignore: avoid_print
-      print(
+      developer.log(
           "WARNING: this File is smaller than 10MB, you could use uploadSmallFile for those. I will do that for you :)");
       yield await uploadSmallFile(drive, name, file);
       return;
@@ -87,7 +88,7 @@ class DetaDrive {
   }
 
   Future<Uint8List> downloadFile(String drive, String name) async {
-    checkForCreds();
+    _checkForCreds();
     return Uint8List.fromList((await http.get(
             Uri.parse("$_baseUrl/$drive/files/download?name=$name"),
             headers: _defaultHeaders))
@@ -96,7 +97,7 @@ class DetaDrive {
 
   Future<FileList> listFiles(String drive,
       {int limit = 100, String? prefix, String? lastName}) async {
-    checkForCreds();
+    _checkForCreds();
     var resp = await http.get(
         Uri.parse(
             "$_baseUrl/$drive/files?limit=$limit${prefix != null ? '&prefix=$prefix' : ''}${lastName != null ? '&last=$lastName' : ''}"),
@@ -109,7 +110,7 @@ class DetaDrive {
       String? prefix,
       String? lastName,
       Duration? timeOut}) async* {
-    checkForCreds();
+    _checkForCreds();
     while (true) {
       yield await listFiles(drive,
           limit: limit, prefix: prefix, lastName: lastName);
@@ -118,7 +119,7 @@ class DetaDrive {
   }
 
   deleteFiles(String drive, List<String> filesToDelete) async {
-    checkForCreds();
+    _checkForCreds();
     if (filesToDelete.length > 1000) {
       throw ArgumentError.value(filesToDelete.length, "filesToDelete",
           "You can't delete more than 1000 files at once.");

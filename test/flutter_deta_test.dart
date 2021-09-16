@@ -32,7 +32,7 @@ void main() {
     expect(user, isNotNull);
   });
 
-  test("deta drive simple CRUD", () async {
+  test("deta drive simple CRD", () async {
     final imgBytes =
         await File.fromUri(Uri.parse("./test/testSrc/Cat03.jpg")).readAsBytes();
     final resp =
@@ -46,16 +46,15 @@ void main() {
     expect(delResp["deleted"], contains("test.jpg"));
   });
 
-  test("deta drive big CRUD", () async {
-    final imgBytes =
+  test("deta drive big CRD", () async {
+    final bytes =
         await File.fromUri(Uri.parse("./test/testSrc/test.pdf")).readAsBytes();
-    final resp = await DetaDrive.instance
-        .chunkedUpload("test", "test.pdf", imgBytes)
-        .last;
+    final resp =
+        await DetaDrive.instance.chunkedUpload("test", "test.pdf", bytes).last;
     expect(resp["name"], equals("test.pdf"));
 
     final img = await DetaDrive.instance.downloadFile("test", "test.pdf");
-    expect(img, equals(imgBytes));
+    expect(img, equals(bytes));
 
     final delResp = await DetaDrive.instance.deleteFiles("test", ["test.pdf"]);
     expect(delResp["deleted"], contains("test.pdf"));

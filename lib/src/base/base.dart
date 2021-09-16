@@ -24,7 +24,7 @@ class DetaBase {
     _factories = factories;
   }
 
-  checkForCreds() {
+  _checkForCreds() {
     // ignore: unnecessary_null_comparison
     if (_projectId == null && _projectKey == null) {
       throw ArgumentError(
@@ -37,42 +37,42 @@ class DetaBase {
       {"X-API-Key": _projectKey, "Content-Type": "application/json"};
 
   Future<dynamic> addItem(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> addMultipleItems(String path, List<Object> body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> updateItem(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.patch(Uri.parse(_baseUrl + path),
             body: jsonEncode(body), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> getItem(String url) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode(
         (await http.get(Uri.parse(_baseUrl + url), headers: _defaultHeaders))
             .body);
   }
 
   Future<dynamic> queryItem(String url, List<Object> queries) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.post(Uri.parse(_baseUrl + url),
             body: jsonEncode({"query": queries}), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> deleteItem(String path) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.delete(Uri.parse(_baseUrl + path),
             headers: _defaultHeaders))
         .body);
@@ -87,7 +87,7 @@ class DetaBase {
   }
 
   Future<T> addGenericItem<T>(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
@@ -96,7 +96,7 @@ class DetaBase {
   }
 
   Future<T> addMultipleGenericItems<T>(String path, List<Object> body) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
@@ -105,7 +105,7 @@ class DetaBase {
   }
 
   Future<T> updateGenericItem<T>(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = jsonDecode((await http.patch(Uri.parse(_baseUrl + path),
             body: jsonEncode(body), headers: _defaultHeaders))
@@ -114,7 +114,7 @@ class DetaBase {
   }
 
   Future<T> getGenericItem<T>(String url) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = json.decode(
         (await http.get(Uri.parse(_baseUrl + url), headers: _defaultHeaders))
@@ -123,7 +123,7 @@ class DetaBase {
   }
 
   Future<T?> querySingleGenericItem<T>(String url, List<Object> queries) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = json.decode((await http.post(Uri.parse(_baseUrl + url),
             body: jsonEncode({"query": queries, "limit": 1}),
@@ -133,7 +133,7 @@ class DetaBase {
   }
 
   Future<List<T>> queryGenericItems<T>(String url, List<Object> queries) async {
-    checkForCreds();
+    _checkForCreds();
     checkFactories();
     final resp = json.decode((await http.post(Uri.parse(_baseUrl + url),
             body: jsonEncode({"query": queries}), headers: _defaultHeaders))
@@ -144,21 +144,21 @@ class DetaBase {
 
   // region raw calls
   Future<dynamic> addRawItem(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode(body), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> addMultipleRawItems(String path, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse(_baseUrl + path),
             body: jsonEncode(body), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> queryRaw(String url, Object query) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.post(Uri.parse(_baseUrl + url),
             body: jsonEncode(query), headers: _defaultHeaders))
         .body);
@@ -167,14 +167,14 @@ class DetaBase {
 
   // region safe calls
   Future<dynamic> addItemSafe(String base, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse("$_baseUrl/$base/items"),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> addMultipleItemsSafe(String base, List<Object> body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.post(Uri.parse("$_baseUrl/$base/items"),
             body: jsonEncode({"items": body}), headers: _defaultHeaders))
         .body);
@@ -182,7 +182,7 @@ class DetaBase {
 
   Future<dynamic> updateItemSafe(
       String base, String toUpdateKey, Object body) async {
-    checkForCreds();
+    _checkForCreds();
     return jsonDecode((await http.patch(
             Uri.parse("$_baseUrl/$base/items/$toUpdateKey"),
             body: jsonEncode(body),
@@ -191,21 +191,21 @@ class DetaBase {
   }
 
   Future<dynamic> getItemSafe(String base, String key) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.get(Uri.parse("$_baseUrl/$base/items/$key"),
             headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> queryItemSafe(String base, List<Object> queries) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.post(Uri.parse("$_baseUrl/$base/query"),
             body: jsonEncode({"query": queries}), headers: _defaultHeaders))
         .body);
   }
 
   Future<dynamic> deleteItemSafe(String base, String toDeleteKey) async {
-    checkForCreds();
+    _checkForCreds();
     return json.decode((await http.delete(
             Uri.parse("$_baseUrl/$base/items/$toDeleteKey"),
             headers: _defaultHeaders))
