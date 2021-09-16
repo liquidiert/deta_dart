@@ -1,5 +1,5 @@
 # Deta Cloud for Flutter
-deta_dart is meant for easy usage of Deta Base, Drive and Auth. All rigths of the beformentioned belong to [Deta]().
+deta_dart is meant for easy usage of Deta Base, Drive and Auth. All rigths of the beformentioned belong to [Deta](deta.sh).
 
 ## Getting started
 Simply import:
