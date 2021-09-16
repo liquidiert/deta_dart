@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:flutter_deta/src/drive/models/fileList.dart';
+import 'package:deta_dart/src/drive/models/fileList.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
 

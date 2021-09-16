@@ -1,3 +1,5 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+- added Deta Drive
+- added Deta Base
+- added intial README

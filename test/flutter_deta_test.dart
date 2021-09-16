@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_deta/flutter_deta.dart';
+import 'package:deta_dart/deta_dart.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
 
 import 'testModels/GameInfo.dart';

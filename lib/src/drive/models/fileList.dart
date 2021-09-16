@@ -1,5 +1,5 @@
 // ignore_for_file: file_names
-import 'package:flutter_deta/src/drive/models/pagination.dart';
+import 'package:deta_dart/src/drive/models/pagination.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'fileList.g.dart';
