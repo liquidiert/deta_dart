@@ -39,7 +39,7 @@ class DetaBase {
   Future<dynamic> addItem(String path, Object body) async {
     _checkForCreds();
     return jsonDecode((await http.post(Uri.parse(_baseUrl + path),
-            body: jsonEncode({"items": body}), headers: _defaultHeaders))
+            body: jsonEncode({"item": body}), headers: _defaultHeaders))
         .body);
   }
 
@@ -90,7 +90,7 @@ class DetaBase {
     _checkForCreds();
     checkFactories();
     final resp = jsonDecode((await http.post(Uri.parse(_baseUrl + path),
-            body: jsonEncode({"items": body}), headers: _defaultHeaders))
+            body: jsonEncode({"item": body}), headers: _defaultHeaders))
         .body);
     return _factories![T]!(resp);
   }
@@ -169,7 +169,7 @@ class DetaBase {
   Future<dynamic> addItemSafe(String base, Object body) async {
     _checkForCreds();
     return jsonDecode((await http.post(Uri.parse("$_baseUrl/$base/items"),
-            body: jsonEncode({"items": body}), headers: _defaultHeaders))
+            body: jsonEncode({"item": body}), headers: _defaultHeaders))
         .body);
   }
 
