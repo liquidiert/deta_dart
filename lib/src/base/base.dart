@@ -129,7 +129,7 @@ class DetaBase {
             body: jsonEncode({"query": queries, "limit": 1}),
             headers: _defaultHeaders))
         .body);
-    return resp["items"].length == 0 ? null : _factories![T]!(resp["items"[0]]);
+    return resp["items"].length == 0 ? null : _factories![T]!(resp["items"][0]);
   }
 
   Future<List<T>> queryGenericItems<T>(String url, List<Object> queries) async {
