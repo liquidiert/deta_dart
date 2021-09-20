@@ -1,3 +1,6 @@
+## 1.0.4
+- fixed generic items
+
 ## 1.0.3
 - fixed put item path
 
