@@ -138,7 +138,12 @@ class DetaBase {
     final resp = json.decode((await http.post(Uri.parse(_baseUrl + url),
             body: jsonEncode({"query": queries}), headers: _defaultHeaders))
         .body)["items"];
-    return _factories![T]!(resp);
+    if (resp.length == 0) return [];
+    final res = <T>[];
+    for (var e in resp) {
+      res.add(_factories![T]!(e));
+    }
+    return res;
   }
   // endregion
 
